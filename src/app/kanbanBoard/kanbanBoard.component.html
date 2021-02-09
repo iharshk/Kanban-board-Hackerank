@@ -1,0 +1,37 @@
+<div class="mt-20 layout-column justify-content-center align-items-center">
+    <section class="mt-50 layout-row align-items-center justify-content-center">
+      <input id="create-task-input" [(ngModel)]="taskName" type="text" class="large" placeholder="New task name" data-test-id="create-task-input"/>
+      <button type="submit" class="ml-30" data-test-id="create-task-button" (click)="configureTasksForRendering(true)">Create task</button>
+    </section>
+
+    <div class="mt-50 layout-row">
+      <div class="card outlined ml-20 mt-0" *ngFor="let tasks of stagesTasks;index as i;">
+        <div class="card-text">
+          <h4>{{this.stagesNames[i]}}</h4>
+          <ul class="styled mt-50" [attr.data-test-id]="'stage-'+ i">
+            <li *ngFor="let task of tasks; index as index;">
+              <div class="li-content layout-row justify-content-between align-items-center">
+                  <span [attr.data-test-id]="generateTestId(task.name)+ '-name'">{{task.name}}</span>
+                  <div class="icons">
+                    <button class="icon-only x-small mx-2" [disabled]="stagesNames[i] == 'Backlog' ? 'disabled': null"
+                            [attr.data-test-id]="generateTestId(task.name)+ '-back'" (click)="moveTask(index, task, 'back')">
+                      <i class="material-icons">arrow_back</i>
+                    </button>
+
+                    <button class="icon-only x-small mx-2" [disabled]="stagesNames[i] == 'Done' ? 'disabled': null"
+                            [attr.data-test-id]="generateTestId(task.name)+ '-forward'" (click)="moveTask(index, task, 'forward')">
+                      <i class="material-icons">arrow_forward</i>
+                    </button>
+
+                    <button class="icon-only danger x-small mx-2"
+                            [attr.data-test-id]="generateTestId(task.name)+ '-delete'" (click)="moveTask(index, task, 'delete')">
+                      <i class="material-icons">delete</i>
+                    </button>
+                  </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
